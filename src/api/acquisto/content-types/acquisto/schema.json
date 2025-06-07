@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "acquistos",
+  "info": {
+    "singularName": "acquisto",
+    "pluralName": "acquistos",
+    "displayName": "Acquisto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "data": {
+      "type": "datetime"
+    },
+    "quantita_totale": {
+      "type": "integer"
+    },
+    "prezzo_totale": {
+      "type": "decimal"
+    },
+    "cod_cliente": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cliente.cliente"
+    }
+  }
+}

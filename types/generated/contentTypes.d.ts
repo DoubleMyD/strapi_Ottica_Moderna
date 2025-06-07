@@ -402,6 +402,37 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAcquistoAcquisto extends Struct.CollectionTypeSchema {
+  collectionName: 'acquistos';
+  info: {
+    displayName: 'Acquisto';
+    pluralName: 'acquistos';
+    singularName: 'acquisto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cod_cliente: Schema.Attribute.Relation<'oneToOne', 'api::cliente.cliente'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::acquisto.acquisto'
+    > &
+      Schema.Attribute.Private;
+    prezzo_totale: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    quantita_totale: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
@@ -418,7 +449,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     blocks: Schema.Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
-    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -474,35 +504,155 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
+export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
+  collectionName: 'clientes';
   info: {
-    description: 'Organize your content into categories';
-    displayName: 'Category';
-    pluralName: 'categories';
-    singularName: 'category';
+    description: '';
+    displayName: 'Cliente';
+    pluralName: 'clientes';
+    singularName: 'cliente';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    cap: Schema.Attribute.Integer;
+    citta: Schema.Attribute.String;
+    cognome: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
+    data_nascita: Schema.Attribute.Date;
+    indirizzo: Schema.Attribute.String;
+    iscritto_newsletter: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::category.category'
+      'api::cliente.cliente'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    nazione: Schema.Attribute.String;
+    nome: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID;
+    tipologia_clientes: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tipologia-cliente.tipologia-cliente'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiDettaglioAcquistoDettaglioAcquisto
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'dettaglio_acquistos';
+  info: {
+    displayName: 'DettaglioAcquisto';
+    pluralName: 'dettaglio-acquistos';
+    singularName: 'dettaglio-acquisto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    acquisto: Schema.Attribute.Relation<'oneToOne', 'api::acquisto.acquisto'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dettaglio-acquisto.dettaglio-acquisto'
+    > &
+      Schema.Attribute.Private;
+    prezzo_unitario_originale: Schema.Attribute.Decimal;
+    prezzo_unitario_scontato: Schema.Attribute.Decimal;
+    prodotto: Schema.Attribute.Relation<'oneToOne', 'api::prodotto.prodotto'>;
+    promozione: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::promozione.promozione'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    quantita: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiDettaglioPromozioniDettaglioPromozioni
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'dettaglio_promozionis';
+  info: {
+    displayName: 'DettaglioPromozioni';
+    pluralName: 'dettaglio-promozionis';
+    singularName: 'dettaglio-promozioni';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dettaglio-promozioni.dettaglio-promozioni'
+    > &
+      Schema.Attribute.Private;
+    prodotto: Schema.Attribute.Relation<'oneToOne', 'api::prodotto.prodotto'>;
+    promozione: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::promozione.promozione'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    tipo_applicazione: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    valore: Schema.Attribute.Decimal;
+  };
+}
+
+export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
+  collectionName: 'faqs';
+  info: {
+    description: '';
+    displayName: 'FAQ';
+    pluralName: 'faqs';
+    singularName: 'faq';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.DateTime;
+    domanda: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'> &
+      Schema.Attribute.Private;
+    prodottos: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::prodotto.prodotto'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    risposta: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_users: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -532,6 +682,193 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProdottoProdotto extends Struct.CollectionTypeSchema {
+  collectionName: 'prodottos';
+  info: {
+    description: '';
+    displayName: 'Prodotto';
+    pluralName: 'prodottos';
+    singularName: 'prodotto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descrizione: Schema.Attribute.Text;
+    faqs: Schema.Attribute.Relation<'manyToMany', 'api::faq.faq'>;
+    immagine: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::prodotto.prodotto'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
+    prezzo_unitario: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    quantita_disponibili: Schema.Attribute.Integer;
+    tipologia: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPromozionePromozione extends Struct.CollectionTypeSchema {
+  collectionName: 'promoziones';
+  info: {
+    description: '';
+    displayName: 'Promozione';
+    pluralName: 'promoziones';
+    singularName: 'promozione';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cod_amministratore: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_fine: Schema.Attribute.DateTime;
+    data_inizio: Schema.Attribute.DateTime;
+    descrizione: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::promozione.promozione'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tipologia_clientes: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tipologia-cliente.tipologia-cliente'
+    >;
+    titolo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRecensioneRecensione extends Struct.CollectionTypeSchema {
+  collectionName: 'recensiones';
+  info: {
+    displayName: 'Recensione';
+    pluralName: 'recensiones';
+    singularName: 'recensione';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cliente: Schema.Attribute.Relation<'oneToOne', 'api::cliente.cliente'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.DateTime;
+    descrizione: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::recensione.recensione'
+    > &
+      Schema.Attribute.Private;
+    prodotto: Schema.Attribute.Relation<'oneToOne', 'api::prodotto.prodotto'>;
+    publishedAt: Schema.Attribute.DateTime;
+    stelle: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    titolo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStoricoPromozioniStoricoPromozioni
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'storico_promozionis';
+  info: {
+    displayName: 'StoricoPromozioni';
+    pluralName: 'storico-promozionis';
+    singularName: 'storico-promozioni';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cliente: Schema.Attribute.Relation<'oneToOne', 'api::cliente.cliente'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_invio: Schema.Attribute.DateTime;
+    data_utilizzo: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::storico-promozioni.storico-promozioni'
+    > &
+      Schema.Attribute.Private;
+    promozione: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::promozione.promozione'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTipologiaClienteTipologiaCliente
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'tipologia_clientes';
+  info: {
+    displayName: 'TipologiaCliente';
+    pluralName: 'tipologia-clientes';
+    singularName: 'tipologia-cliente';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    clientes: Schema.Attribute.Relation<'manyToMany', 'api::cliente.cliente'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descrizione: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tipologia-cliente.tipologia-cliente'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
+    promoziones: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::promozione.promozione'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    tratti_caratteristici: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -993,10 +1330,10 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    cliente: Schema.Attribute.Relation<'oneToOne', 'api::cliente.cliente'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1007,6 +1344,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    faqs: Schema.Attribute.Relation<'manyToMany', 'api::faq.faq'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1048,10 +1386,19 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
+      'api::acquisto.acquisto': ApiAcquistoAcquisto;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
-      'api::category.category': ApiCategoryCategory;
+      'api::cliente.cliente': ApiClienteCliente;
+      'api::dettaglio-acquisto.dettaglio-acquisto': ApiDettaglioAcquistoDettaglioAcquisto;
+      'api::dettaglio-promozioni.dettaglio-promozioni': ApiDettaglioPromozioniDettaglioPromozioni;
+      'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;
+      'api::prodotto.prodotto': ApiProdottoProdotto;
+      'api::promozione.promozione': ApiPromozionePromozione;
+      'api::recensione.recensione': ApiRecensioneRecensione;
+      'api::storico-promozioni.storico-promozioni': ApiStoricoPromozioniStoricoPromozioni;
+      'api::tipologia-cliente.tipologia-cliente': ApiTipologiaClienteTipologiaCliente;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

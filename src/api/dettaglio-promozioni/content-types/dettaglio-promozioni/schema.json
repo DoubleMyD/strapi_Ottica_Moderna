@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dettaglio_promozionis",
+  "info": {
+    "singularName": "dettaglio-promozioni",
+    "pluralName": "dettaglio-promozionis",
+    "displayName": "DettaglioPromozioni"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "tipo_applicazione": {
+      "type": "string"
+    },
+    "valore": {
+      "type": "decimal"
+    },
+    "prodotto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::prodotto.prodotto"
+    },
+    "promozione": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::promozione.promozione"
+    }
+  }
+}

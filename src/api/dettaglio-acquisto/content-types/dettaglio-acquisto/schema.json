@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dettaglio_acquistos",
+  "info": {
+    "singularName": "dettaglio-acquisto",
+    "pluralName": "dettaglio-acquistos",
+    "displayName": "DettaglioAcquisto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "quantita": {
+      "type": "integer"
+    },
+    "prezzo_unitario_originale": {
+      "type": "decimal"
+    },
+    "prezzo_unitario_scontato": {
+      "type": "decimal"
+    },
+    "prodotto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::prodotto.prodotto"
+    },
+    "acquisto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::acquisto.acquisto"
+    },
+    "promozione": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::promozione.promozione"
+    }
+  }
+}

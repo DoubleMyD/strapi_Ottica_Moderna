@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promoziones",
+  "info": {
+    "singularName": "promozione",
+    "pluralName": "promoziones",
+    "displayName": "Promozione",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titolo": {
+      "type": "string"
+    },
+    "descrizione": {
+      "type": "text"
+    },
+    "data_inizio": {
+      "type": "datetime"
+    },
+    "data_fine": {
+      "type": "datetime"
+    },
+    "cod_amministratore": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "tipologia_clientes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tipologia-cliente.tipologia-cliente",
+      "inversedBy": "promoziones"
+    }
+  }
+}

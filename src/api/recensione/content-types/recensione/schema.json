@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recensiones",
+  "info": {
+    "singularName": "recensione",
+    "pluralName": "recensiones",
+    "displayName": "Recensione"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "stelle": {
+      "default": 0,
+      "max": 5,
+      "min": 1,
+      "required": false,
+      "unique": false,
+      "type": "integer"
+    },
+    "data": {
+      "type": "datetime"
+    },
+    "titolo": {
+      "type": "string"
+    },
+    "descrizione": {
+      "type": "text"
+    },
+    "cliente": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cliente.cliente"
+    },
+    "prodotto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::prodotto.prodotto"
+    }
+  }
+}

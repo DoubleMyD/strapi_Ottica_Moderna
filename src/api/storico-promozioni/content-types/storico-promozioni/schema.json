@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "storico_promozionis",
+  "info": {
+    "singularName": "storico-promozioni",
+    "pluralName": "storico-promozionis",
+    "displayName": "StoricoPromozioni"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "data_invio": {
+      "type": "datetime"
+    },
+    "data_utilizzo": {
+      "type": "datetime"
+    },
+    "cliente": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cliente.cliente"
+    },
+    "promozione": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::promozione.promozione"
+    }
+  }
+}

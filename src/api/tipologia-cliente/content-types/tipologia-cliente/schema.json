@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipologia_clientes",
+  "info": {
+    "singularName": "tipologia-cliente",
+    "pluralName": "tipologia-clientes",
+    "displayName": "TipologiaCliente"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "descrizione": {
+      "type": "text"
+    },
+    "tratti_caratteristici": {
+      "type": "text"
+    },
+    "clientes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::cliente.cliente",
+      "inversedBy": "tipologia_clientes"
+    },
+    "promoziones": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::promozione.promozione",
+      "mappedBy": "tipologia_clientes"
+    }
+  }
+}
