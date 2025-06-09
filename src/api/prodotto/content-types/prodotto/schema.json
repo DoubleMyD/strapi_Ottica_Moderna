@@ -41,6 +41,9 @@
       "relation": "manyToMany",
       "target": "api::faq.faq",
       "mappedBy": "prodottos"
+    },
+    "brand": {
+      "type": "string"
     }
   }
 }

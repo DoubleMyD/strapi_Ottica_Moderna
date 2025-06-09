@@ -405,6 +405,7 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
 export interface ApiAcquistoAcquisto extends Struct.CollectionTypeSchema {
   collectionName: 'acquistos';
   info: {
+    description: '';
     displayName: 'Acquisto';
     pluralName: 'acquistos';
     singularName: 'acquisto';
@@ -418,6 +419,10 @@ export interface ApiAcquistoAcquisto extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     data: Schema.Attribute.DateTime;
+    dettaglio_acquistos: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dettaglio-acquisto.dettaglio-acquisto'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -513,7 +518,7 @@ export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
     singularName: 'cliente';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     cap: Schema.Attribute.Integer;
@@ -524,14 +529,14 @@ export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     data_nascita: Schema.Attribute.Date;
     indirizzo: Schema.Attribute.String;
-    iscritto_newsletter: Schema.Attribute.Boolean;
+    iscrizione_newsletter: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::cliente.cliente'
     > &
       Schema.Attribute.Private;
-    nazione: Schema.Attribute.String;
+    nazionalita: Schema.Attribute.String;
     nome: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     tipologia_clientes: Schema.Attribute.Relation<
@@ -552,6 +557,7 @@ export interface ApiDettaglioAcquistoDettaglioAcquisto
   extends Struct.CollectionTypeSchema {
   collectionName: 'dettaglio_acquistos';
   info: {
+    description: '';
     displayName: 'DettaglioAcquisto';
     pluralName: 'dettaglio-acquistos';
     singularName: 'dettaglio-acquisto';
@@ -564,6 +570,10 @@ export interface ApiDettaglioAcquistoDettaglioAcquisto
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dettaglio_promozioni: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::dettaglio-promozioni.dettaglio-promozioni'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -589,6 +599,7 @@ export interface ApiDettaglioPromozioniDettaglioPromozioni
   extends Struct.CollectionTypeSchema {
   collectionName: 'dettaglio_promozionis';
   info: {
+    description: '';
     displayName: 'DettaglioPromozioni';
     pluralName: 'dettaglio-promozionis';
     singularName: 'dettaglio-promozioni';
@@ -700,6 +711,7 @@ export interface ApiProdottoProdotto extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    brand: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -745,6 +757,10 @@ export interface ApiPromozionePromozione extends Struct.CollectionTypeSchema {
     data_fine: Schema.Attribute.DateTime;
     data_inizio: Schema.Attribute.DateTime;
     descrizione: Schema.Attribute.Text;
+    dettaglio_promozionis: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dettaglio-promozioni.dettaglio-promozioni'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

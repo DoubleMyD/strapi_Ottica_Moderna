@@ -4,7 +4,8 @@
   "info": {
     "singularName": "dettaglio-promozioni",
     "pluralName": "dettaglio-promozionis",
-    "displayName": "DettaglioPromozioni"
+    "displayName": "DettaglioPromozioni",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

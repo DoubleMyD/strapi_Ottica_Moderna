@@ -4,7 +4,8 @@
   "info": {
     "singularName": "dettaglio-acquisto",
     "pluralName": "dettaglio-acquistos",
-    "displayName": "DettaglioAcquisto"
+    "displayName": "DettaglioAcquisto",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -33,6 +34,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::promozione.promozione"
+    },
+    "dettaglio_promozioni": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::dettaglio-promozioni.dettaglio-promozioni"
     }
   }
 }

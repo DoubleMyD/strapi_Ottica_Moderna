@@ -33,6 +33,11 @@
       "relation": "manyToMany",
       "target": "api::tipologia-cliente.tipologia-cliente",
       "inversedBy": "promoziones"
+    },
+    "dettaglio_promozionis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dettaglio-promozioni.dettaglio-promozioni"
     }
   }
 }

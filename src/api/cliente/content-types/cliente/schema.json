@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "nome": {
@@ -29,7 +29,7 @@
     "cap": {
       "type": "integer"
     },
-    "nazione": {
+    "nazionalita": {
       "type": "string"
     },
     "iscrizione_newsletter": {

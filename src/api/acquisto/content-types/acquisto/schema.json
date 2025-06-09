@@ -4,7 +4,8 @@
   "info": {
     "singularName": "acquisto",
     "pluralName": "acquistos",
-    "displayName": "Acquisto"
+    "displayName": "Acquisto",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -23,6 +24,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::cliente.cliente"
+    },
+    "dettaglio_acquistos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dettaglio-acquisto.dettaglio-acquisto"
     }
   }
 }
