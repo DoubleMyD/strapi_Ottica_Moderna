@@ -19,8 +19,9 @@
     },
     "prodotto": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::prodotto.prodotto"
+      "relation": "manyToOne",
+      "target": "api::prodotto.prodotto",
+      "inversedBy": "dettaglio_promozionis"
     },
     "promozione": {
       "type": "relation",

@@ -25,11 +25,6 @@
       "relation": "oneToOne",
       "target": "api::prodotto.prodotto"
     },
-    "acquisto": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::acquisto.acquisto"
-    },
     "promozione": {
       "type": "relation",
       "relation": "oneToOne",

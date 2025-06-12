@@ -44,6 +44,12 @@
     },
     "brand": {
       "type": "string"
+    },
+    "dettaglio_promozionis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dettaglio-promozioni.dettaglio-promozioni",
+      "mappedBy": "prodotto"
     }
   }
 }

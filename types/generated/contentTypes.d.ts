@@ -566,7 +566,6 @@ export interface ApiDettaglioAcquistoDettaglioAcquisto
     draftAndPublish: true;
   };
   attributes: {
-    acquisto: Schema.Attribute.Relation<'oneToOne', 'api::acquisto.acquisto'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -617,7 +616,7 @@ export interface ApiDettaglioPromozioniDettaglioPromozioni
       'api::dettaglio-promozioni.dettaglio-promozioni'
     > &
       Schema.Attribute.Private;
-    prodotto: Schema.Attribute.Relation<'oneToOne', 'api::prodotto.prodotto'>;
+    prodotto: Schema.Attribute.Relation<'manyToOne', 'api::prodotto.prodotto'>;
     promozione: Schema.Attribute.Relation<
       'oneToOne',
       'api::promozione.promozione'
@@ -716,6 +715,10 @@ export interface ApiProdottoProdotto extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     descrizione: Schema.Attribute.Text;
+    dettaglio_promozionis: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dettaglio-promozioni.dettaglio-promozioni'
+    >;
     faqs: Schema.Attribute.Relation<'manyToMany', 'api::faq.faq'>;
     immagine: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -751,6 +754,7 @@ export interface ApiPromozionePromozione extends Struct.CollectionTypeSchema {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    codice: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

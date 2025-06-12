@@ -38,6 +38,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::dettaglio-promozioni.dettaglio-promozioni"
+    },
+    "codice": {
+      "type": "string"
     }
   }
 }
