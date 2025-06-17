@@ -28,7 +28,8 @@
     "dettaglio_acquistos": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::dettaglio-acquisto.dettaglio-acquisto"
+      "target": "api::dettaglio-acquisto.dettaglio-acquisto",
+      "mappedBy": "acquisto"
     }
   }
 }

@@ -17,16 +17,17 @@
     "valore": {
       "type": "decimal"
     },
-    "prodotto": {
+    "prodottos": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::prodotto.prodotto",
       "inversedBy": "dettaglio_promozionis"
     },
-    "promozione": {
+    "promoziones": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::promozione.promozione"
+      "relation": "manyToMany",
+      "target": "api::promozione.promozione",
+      "inversedBy": "dettaglio_promozionis"
     }
   }
 }

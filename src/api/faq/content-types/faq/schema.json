@@ -20,9 +20,9 @@
     "risposta": {
       "type": "text"
     },
-    "prodottos": {
+    "prodotto": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::prodotto.prodotto",
       "inversedBy": "faqs"
     },

@@ -34,6 +34,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::dettaglio-promozioni.dettaglio-promozioni"
+    },
+    "acquisto": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::acquisto.acquisto",
+      "inversedBy": "dettaglio_acquistos"
     }
   }
 }

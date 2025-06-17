@@ -46,6 +46,12 @@
       "relation": "manyToMany",
       "target": "api::tipologia-cliente.tipologia-cliente",
       "mappedBy": "clientes"
+    },
+    "recensiones": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recensione.recensione",
+      "mappedBy": "cliente"
     }
   }
 }

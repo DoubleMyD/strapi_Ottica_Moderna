@@ -4,7 +4,8 @@
   "info": {
     "singularName": "tipologia-cliente",
     "pluralName": "tipologia-clientes",
-    "displayName": "TipologiaCliente"
+    "displayName": "TipologiaCliente",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -30,6 +31,12 @@
       "relation": "manyToMany",
       "target": "api::promozione.promozione",
       "mappedBy": "tipologia_clientes"
+    },
+    "prodottos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::prodotto.prodotto",
+      "inversedBy": "tipologia_clientes"
     }
   }
 }

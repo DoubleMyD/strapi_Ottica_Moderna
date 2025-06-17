@@ -36,8 +36,9 @@
     },
     "dettaglio_promozionis": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::dettaglio-promozioni.dettaglio-promozioni"
+      "relation": "manyToMany",
+      "target": "api::dettaglio-promozioni.dettaglio-promozioni",
+      "mappedBy": "promoziones"
     },
     "codice": {
       "type": "string"

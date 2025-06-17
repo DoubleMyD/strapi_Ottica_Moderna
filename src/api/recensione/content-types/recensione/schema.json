@@ -4,7 +4,8 @@
   "info": {
     "singularName": "recensione",
     "pluralName": "recensiones",
-    "displayName": "Recensione"
+    "displayName": "Recensione",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -29,13 +30,15 @@
     },
     "cliente": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::cliente.cliente"
+      "relation": "manyToOne",
+      "target": "api::cliente.cliente",
+      "inversedBy": "recensiones"
     },
     "prodotto": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::prodotto.prodotto"
+      "target": "api::prodotto.prodotto",
+      "inversedBy": "recensione"
     }
   }
 }

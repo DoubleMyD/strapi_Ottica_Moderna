@@ -438,77 +438,6 @@ export interface ApiAcquistoAcquisto extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
-  collectionName: 'articles';
-  info: {
-    description: 'Create your blog content';
-    displayName: 'Article';
-    pluralName: 'articles';
-    singularName: 'article';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
-    blocks: Schema.Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
-    cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::article.article'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
-  collectionName: 'authors';
-  info: {
-    description: 'Create authors for your content';
-    displayName: 'Author';
-    pluralName: 'authors';
-    singularName: 'author';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::author.author'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
   collectionName: 'clientes';
   info: {
@@ -539,6 +468,10 @@ export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
     nazionalita: Schema.Attribute.String;
     nome: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    recensiones: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::recensione.recensione'
+    >;
     tipologia_clientes: Schema.Attribute.Relation<
       'manyToMany',
       'api::tipologia-cliente.tipologia-cliente'
@@ -566,6 +499,7 @@ export interface ApiDettaglioAcquistoDettaglioAcquisto
     draftAndPublish: true;
   };
   attributes: {
+    acquisto: Schema.Attribute.Relation<'manyToOne', 'api::acquisto.acquisto'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -616,9 +550,12 @@ export interface ApiDettaglioPromozioniDettaglioPromozioni
       'api::dettaglio-promozioni.dettaglio-promozioni'
     > &
       Schema.Attribute.Private;
-    prodotto: Schema.Attribute.Relation<'manyToOne', 'api::prodotto.prodotto'>;
-    promozione: Schema.Attribute.Relation<
-      'oneToOne',
+    prodottos: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::prodotto.prodotto'
+    >;
+    promoziones: Schema.Attribute.Relation<
+      'manyToMany',
       'api::promozione.promozione'
     >;
     publishedAt: Schema.Attribute.DateTime;
@@ -650,10 +587,7 @@ export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'> &
       Schema.Attribute.Private;
-    prodottos: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::prodotto.prodotto'
-    >;
+    prodotto: Schema.Attribute.Relation<'manyToOne', 'api::prodotto.prodotto'>;
     publishedAt: Schema.Attribute.DateTime;
     risposta: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
@@ -716,10 +650,10 @@ export interface ApiProdottoProdotto extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     descrizione: Schema.Attribute.Text;
     dettaglio_promozionis: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::dettaglio-promozioni.dettaglio-promozioni'
     >;
-    faqs: Schema.Attribute.Relation<'manyToMany', 'api::faq.faq'>;
+    faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
     immagine: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -731,7 +665,15 @@ export interface ApiProdottoProdotto extends Struct.CollectionTypeSchema {
     prezzo_unitario: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     quantita_disponibili: Schema.Attribute.Integer;
+    recensione: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::recensione.recensione'
+    >;
     tipologia: Schema.Attribute.String;
+    tipologia_clientes: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tipologia-cliente.tipologia-cliente'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -762,7 +704,7 @@ export interface ApiPromozionePromozione extends Struct.CollectionTypeSchema {
     data_inizio: Schema.Attribute.DateTime;
     descrizione: Schema.Attribute.Text;
     dettaglio_promozionis: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::dettaglio-promozioni.dettaglio-promozioni'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -786,6 +728,7 @@ export interface ApiPromozionePromozione extends Struct.CollectionTypeSchema {
 export interface ApiRecensioneRecensione extends Struct.CollectionTypeSchema {
   collectionName: 'recensiones';
   info: {
+    description: '';
     displayName: 'Recensione';
     pluralName: 'recensiones';
     singularName: 'recensione';
@@ -794,7 +737,7 @@ export interface ApiRecensioneRecensione extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    cliente: Schema.Attribute.Relation<'oneToOne', 'api::cliente.cliente'>;
+    cliente: Schema.Attribute.Relation<'manyToOne', 'api::cliente.cliente'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -863,6 +806,7 @@ export interface ApiTipologiaClienteTipologiaCliente
   extends Struct.CollectionTypeSchema {
   collectionName: 'tipologia_clientes';
   info: {
+    description: '';
     displayName: 'TipologiaCliente';
     pluralName: 'tipologia-clientes';
     singularName: 'tipologia-cliente';
@@ -883,6 +827,10 @@ export interface ApiTipologiaClienteTipologiaCliente
     > &
       Schema.Attribute.Private;
     nome: Schema.Attribute.String;
+    prodottos: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::prodotto.prodotto'
+    >;
     promoziones: Schema.Attribute.Relation<
       'manyToMany',
       'api::promozione.promozione'
@@ -1407,8 +1355,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::acquisto.acquisto': ApiAcquistoAcquisto;
-      'api::article.article': ApiArticleArticle;
-      'api::author.author': ApiAuthorAuthor;
       'api::cliente.cliente': ApiClienteCliente;
       'api::dettaglio-acquisto.dettaglio-acquisto': ApiDettaglioAcquistoDettaglioAcquisto;
       'api::dettaglio-promozioni.dettaglio-promozioni': ApiDettaglioPromozioniDettaglioPromozioni;
